@@ -1,0 +1,15 @@
+  <toolbar>
+    </toolbar>
+<ion-content>
+  <ion-grid>
+      <h1 padding-left > Descuentos y Ofertas</h1>
+    <ion-row>
+      <ion-col col-6 padding *ngFor="let item of images" >
+        <img src={{item.image}} #myImage (click)="openImage(myImage)">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer (click)="presentActionSheet()">
+
+</ion-footer>

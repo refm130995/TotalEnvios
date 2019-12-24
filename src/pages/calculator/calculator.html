@@ -1,0 +1,122 @@
+<toolbar></toolbar>
+<ion-content padding>
+ <!--  <iframe class="webView" scrolling=yes src="http://totalenvios.com/totalEnvio/es/content/16-calculadora" frameborder="0"></iframe> -->
+ <ion-list class="lista">
+  <ion-item>
+    <ion-label >Unidad de medida</ion-label>
+   <ion-select [(ngModel)]="unity">
+     <ion-option value="Imperial">Sistema ingles</ion-option>
+     <ion-option value="Metrico">Sistema decimal</ion-option>
+   </ion-select>
+  </ion-item>
+
+  <ion-item (click)="search()" *ngIf="unity">
+    <ion-label >Busqueda rapida</ion-label>
+   <ion-select disabled>
+   </ion-select>
+  </ion-item>
+
+
+<ng-container *ngIf="unity == 'Imperial'">
+  <ion-item (click)="search()" *ngIf="unity == 'Imperial'">
+    <ion-input type="text" [(ngModel)]="type.box" disabled></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating *ngIf="unity">Ancho</ion-label>
+    <ion-input type="text" [(ngModel)]="type.W"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating *ngIf="unity">Alto</ion-label>
+    <ion-input type="text" [(ngModel)]="type.H"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating *ngIf="unity">Largo </ion-label>
+    <ion-input type="text" [(ngModel)]="type.L"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity == 'Imperial'">
+    <ion-label floating>Peso Lb </ion-label>
+    <ion-input type="text" [(ngModel)]="type.LIB"></ion-input>
+  </ion-item>
+</ng-container>
+
+<ng-container *ngIf="unity == 'Metrico'">
+  <ion-item (click)="search()" *ngIf="unity == 'Metrico'">
+    <ion-input type="text" [(ngModel)]="data.box" disabled></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity">
+    <ion-label floating >Ancho</ion-label>
+    <ion-input type="text" [(ngModel)]="data.W" [disabled]="!unity"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity">
+    <ion-label floating>Alto</ion-label>
+    <ion-input type="text" [(ngModel)]="data.H" [disabled]="!unity"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity">
+    <ion-label floating>Largo </ion-label>
+    <ion-input type="text" [(ngModel)]="data.L" [disabled]="!unity"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity == 'Metrico'">
+    <ion-label floating>Peso Kg </ion-label>
+    <ion-input type="text" [(ngModel)]="data.kg"></ion-input>
+  </ion-item>
+</ng-container>
+ 
+
+
+    <ion-item (click)="search2()" *ngIf="unity">
+      <ion-label >Destino</ion-label>
+     <ion-select disabled>
+     </ion-select>
+      <ion-input type="text" [(ngModel)]="data.country" disabled></ion-input>
+    </ion-item>
+   
+    
+   <ion-item *ngIf="data.country == 'Venezuela'" (click)="search3()">
+     <ion-label>Estado</ion-label>
+     <ion-select disabled>
+     </ion-select>
+     <ion-input type="text" [(ngModel)]="data.states" disabled></ion-input>
+   </ion-item>
+
+
+   <ion-item *ngIf="unity">
+    <ion-label>Tipo de envio</ion-label>
+    <ion-select [(ngModel)]="data.send">
+      <ion-option value="A"  >Aereo</ion-option>
+      <ion-option value="B"  >Maritimo</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="unity">
+    <ion-label>Seguro</ion-label>
+    <ion-toggle (ionChange)="secure_()"  [(ngModel)]="security"></ion-toggle>
+  </ion-item>
+  <ion-item *ngIf="security">
+    <ion-label *ngIf="security">Precio del articulo en dolares</ion-label>
+    <ion-input type="text" [(ngModel)]="data.price" [disabled]="!security"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity">
+    <ion-label floating>Nombre Completo</ion-label>
+    <ion-input type="text" [(ngModel)]="data.fullname"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="unity">
+    <ion-label floating>Email</ion-label>
+    <ion-input type="text" data.email></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="unity">
+    <ion-label>Forma de pago</ion-label>
+    <ion-select [(ngModel)]="data.billing">
+      <ion-option value=0.05>Paypal</ion-option>
+      <ion-option value=1>Bs</ion-option>
+      <ion-option value=0.04>Visa</ion-option>
+      <ion-option value=0.04>American Express</ion-option>
+      <ion-option value=0.04>MasterCard</ion-option>
+      <ion-option value=0.04>Square</ion-option>
+      <ion-option value=0.02>BTC</ion-option>
+      <ion-option value=0.02>Litecoin</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+<button ion-button round *ngIf="unity" text-center (click)="calculate()" [disabled]="(!data.billing && !data.send && !data.W && !data.H && !data.W) || !data.billing && !data.send && !type.W && !type.H && !type.W"> Calcular</button>
+</ion-content>
